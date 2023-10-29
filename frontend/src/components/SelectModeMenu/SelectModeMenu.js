@@ -1,5 +1,15 @@
 import { React } from "react";
-import { MainContainer, TextTypo, TextContainer, ButtonContainer, ButtonStyled, HeaderRoot, HeaderContainer, HeaderBackButton } from "./styled";
+import {
+  MainContainer,
+  TextTypo,
+  TextContainer,
+  ButtonContainer,
+  ButtonStyled,
+  HeaderRoot,
+  HeaderContainer,
+  HeaderBackButton,
+  Root,
+} from "./styled";
 import ClearFooter from "../ClearFooter/ClearFooter";
 import { useNavigate } from "react-router-dom";
 
@@ -9,41 +19,49 @@ const SelectModeMenu = ({ setOpenMenu }) => {
   const onClickCancelMenuButton = () => {
     // 창 닫기
     setOpenMenu(false);
-  }
+  };
 
   const onClickPainterModeButton = () => {
-    navigate('/explain/painter')
+    navigate("/explain/painter");
     window.location.reload();
-  }
+  };
 
   const onClickTextModeButton = () => {
-    navigate('/explain/text')
+    navigate("/explain/text");
     window.location.reload();
-  }
+  };
 
   const onClickRadioModeButton = () => {
-    navigate('/explain/radio')
+    navigate("/explain/radio");
     window.location.reload();
-  }
-// 모든 선택한 것을 localstorage에 저장해놓으면 다음 작품에도 적용 가능할듯..?
+  };
+  // 모든 선택한 것을 localstorage에 저장해놓으면 다음 작품에도 적용 가능할듯..?
   return (
-    <MainContainer>
+    <Root>
+      <MainContainer>
         <HeaderRoot>
           <HeaderContainer>
-            <HeaderBackButton onClick={onClickCancelMenuButton}/>
+            <HeaderBackButton onClick={onClickCancelMenuButton} />
           </HeaderContainer>
         </HeaderRoot>
         <TextContainer>
           <TextTypo>도슨트 모드 선택하기</TextTypo>
         </TextContainer>
         <ButtonContainer>
-          <ButtonStyled onClick={onClickPainterModeButton}>작가 모드</ButtonStyled>
-          <ButtonStyled onClick={onClickTextModeButton}>텍스트 모드</ButtonStyled>
-          <ButtonStyled onClick={onClickRadioModeButton}>라디오 모드</ButtonStyled>
+          <ButtonStyled onClick={onClickPainterModeButton}>
+            작가 모드
+          </ButtonStyled>
+          <ButtonStyled onClick={onClickTextModeButton}>
+            텍스트 모드
+          </ButtonStyled>
+          <ButtonStyled onClick={onClickRadioModeButton}>
+            라디오 모드
+          </ButtonStyled>
         </ButtonContainer>
-      <ClearFooter />
-    </MainContainer>
+        <ClearFooter />
+      </MainContainer>
+    </Root>
   );
-}
+};
 
 export default SelectModeMenu;

@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { Button, Typography } from 'antd'
-import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../../constants/layout'
-import TextArea from 'antd/es/input/TextArea'
+import styled from "styled-components";
+import { Button, Typography } from "antd";
+import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../constants/layout";
+import TextArea from "antd/es/input/TextArea";
 
 export const Root = styled.div`
   overflow: hidden;
   height: 100vh;
-`
+`;
 
 export const MainContainer = styled.div`
   width: 100%;
@@ -18,18 +18,28 @@ export const MainContainer = styled.div`
   padding-top: ${HEADER_HEIGHT}px;
   position: relative;
   padding-bottom: ${FOOTER_HEIGHT}px;
-  background-color: #096dd9;
-`
+  background: linear-gradient(to bottom, #a0dafe, #009eff);
+`;
 export const TextContainer = styled.div`
-  padding-top: 50px;
-`
+  padding-top: 90px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const TextTypo = styled(Typography)`
   margin: 10px;
   font-size: 30px;
-  font-weight: bold;
-  color: white;
-`
+  font-family: Pretendard-Regular;
+  color: #313131;
+`;
+export const Divider = styled.hr`
+  border: 1px solid black;
+  margin: 10px 0;
+  border-color: #878787;
+  opacity: 50%;
+`;
+
 /*
 export const ExplainTypo = styled(Typography)`
   width: 90%;
@@ -46,12 +56,15 @@ export const ExplainTypo = styled(Typography)`
 
 export const QuestionInput = styled(TextArea)`
   width: 90%;
+  min-height: 30vh !important;
   margin: 30px 10px;
-  padding: 20px 10px;
-  font-size: 18px;
+  padding: 20px 30px;
+  font-size: 25px;
   font-weight: 400;
   color: black;
-`
+  border: none;
+  resize: none !important;
+`;
 
 export const FooterContainer = styled.div`
   width: 100%;
@@ -66,16 +79,23 @@ export const FooterContainer = styled.div`
   bottom: 0;
   left: 0;
   z-index: 100;
-`
+`;
 
 export const ButtonStyled = styled(Button)`
-  width: 80%;
-  height: 40px;
+  width: 50%;
+  height: 80%;
   margin: 10px;
-  border-color: #003a8c; 
-  background-color: #003a8c;
+  border-radius: 20px;
+  // border-color: #003a8c;
+  background-color: #a2d6f6;
   font-size: 20px;
   font-weight: bold;
-  color: white;
-  box-shadow: 5px 5px #002766;
-`
+  font-family: Pretendard-Regular;
+  color: #282828;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.1);
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+`;
