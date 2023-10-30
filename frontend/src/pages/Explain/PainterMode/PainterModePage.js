@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
-import painterFace from "../../../assets/picasso_img.jpeg";
+import painterFace from "../../../assets/art2.png";
 import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 
 const PainterModePage = () => {

@@ -9,23 +9,28 @@ export const MoveArtContainer = styled.div`
 
 export const MoveArtButton = styled.button`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 10px;
-  width: 40%;
+  width: 50%;
   height: 60px;
   margin: 10px;
   border: none;
   border-radius: 5px;
   color: gray;
-  font-size: 16px;
-  font-family: Pretendard-Regular;
+  font-size: 13px;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   line-height: 20px;
   &:hover {
     color: black;
     background-color: white;
   }
+`;
+
+export const ArtImg = styled.img`
+  width: 20%;
+  //height: 60%;
 `;
 
 export const TextContainer = styled.div`
