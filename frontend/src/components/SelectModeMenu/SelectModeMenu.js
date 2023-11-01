@@ -10,8 +10,9 @@ import {
   HeaderBackButton,
   Root,
 } from "./styled";
-import ClearFooter from "../ClearFooter/ClearFooter";
 import { useNavigate } from "react-router-dom";
+import { FloatButton, Tooltip } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 const SelectModeMenu = ({ setOpenMenu }) => {
   const navigate = useNavigate();
@@ -58,7 +59,22 @@ const SelectModeMenu = ({ setOpenMenu }) => {
             라디오 모드
           </ButtonStyled>
         </ButtonContainer>
-        <ClearFooter />
+        <Tooltip
+          title={
+            <div>
+              <p>작가 모드 : 작가의 얼굴과 음성으로 해설</p>
+              <p>텍스트 모드 : 텍스트로 해설 제공</p>
+              <p>라디오 모드 : 음성과 텍스트로 해설 제공</p>
+            </div>
+          }
+          trigger="hover"
+          placement="topRight"
+        >
+          <FloatButton
+            icon={<QuestionCircleOutlined />}
+            style={{ width: "45px", height: "45px", right: "10%" }}
+          />
+        </Tooltip>
       </MainContainer>
     </Root>
   );

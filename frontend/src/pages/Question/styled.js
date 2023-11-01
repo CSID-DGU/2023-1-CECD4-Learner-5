@@ -21,7 +21,8 @@ export const MainContainer = styled.div`
   background: linear-gradient(to bottom, #a0dafe, #009eff);
 `;
 export const TextContainer = styled.div`
-  padding-top: 90px;
+  padding-top: 60px;
+  padding-bottom: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -30,14 +31,15 @@ export const TextContainer = styled.div`
 export const TextTypo = styled(Typography)`
   margin: 10px;
   font-size: 30px;
-  font-family: Pretendard-Regular;
-  color: #313131;
+  font-weight: bold;
+  font-family: "Sunflower", sans-serif;
+  text-align: center;
+  color: #22668d;
 `;
 export const Divider = styled.hr`
-  border: 1px solid black;
+  border: 3px solid white;
+  border-radius: 20px;
   margin: 10px 0;
-  border-color: #878787;
-  opacity: 50%;
 `;
 
 /*
@@ -82,7 +84,7 @@ export const FooterContainer = styled.div`
 `;
 
 export const ButtonStyled = styled(Button)`
-  width: 50%;
+  width: 80%;
   height: 80%;
   margin: 10px;
   border-radius: 20px;
@@ -90,7 +92,7 @@ export const ButtonStyled = styled(Button)`
   background-color: #a2d6f6;
   font-size: 20px;
   font-weight: bold;
-  font-family: Pretendard-Regular;
+  font-family: "Noto Sans KR", sans-serif;
   color: #282828;
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.1);
   &:hover {

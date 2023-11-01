@@ -49,16 +49,23 @@ export const Divider = styled.hr`
   // width: 300px;
 `;
 export const ButtonContainer = styled.div`
+  margin-bottom: 170px;
+  width: 100%;
+`;
+
+export const ButtonInnerContainer = styled.div`
   display: flex;
+  //flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin-bottom: 200px;
+  //margin-bottom: 200px;
 `;
 
 export const ButtonStyled = styled(Button)`
   width: 80%;
   height: 85%;
   margin: 15px;
+  padding: 5px;
   border-radius: 10px;
   border: 2px solid white;
   background-color: #22668d;

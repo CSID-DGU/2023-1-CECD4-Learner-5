@@ -8,9 +8,9 @@ import {
   ButtonStyled,
   Divider,
 } from "./styled";
-import ClearHeader from "../../components/ClearHeader/ClearHeader";
-import ClearFooter from "../../components/ClearFooter/ClearFooter";
 import { useNavigate } from "react-router-dom";
+import { FloatButton, Tooltip } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 const SelectModePage = () => {
   const navigate = useNavigate();
@@ -30,7 +30,6 @@ const SelectModePage = () => {
   return (
     <Root>
       <MainContainer>
-        {/* <ClearHeader /> */}
         <TextContainer>
           <TextTypo>도슨트 모드 선택하기</TextTypo>
           <Divider />
@@ -46,7 +45,22 @@ const SelectModePage = () => {
             라디오 모드
           </ButtonStyled>
         </ButtonContainer>
-        {/* <ClearFooter /> */}
+        <Tooltip
+          title={
+            <div>
+              <p>작가 모드 : 작가의 얼굴과 음성으로 해설</p>
+              <p>텍스트 모드 : 텍스트로 해설 제공</p>
+              <p>라디오 모드 : 음성과 텍스트로 해설 제공</p>
+            </div>
+          }
+          trigger="hover"
+          placement="topRight"
+        >
+          <FloatButton
+            icon={<QuestionCircleOutlined />}
+            style={{ width: "45px", height: "45px", right: "10%" }}
+          />
+        </Tooltip>
       </MainContainer>
     </Root>
   );

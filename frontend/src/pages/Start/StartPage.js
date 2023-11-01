@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import {
   Root,
   MainContainer,
@@ -7,49 +7,59 @@ import {
   ButtonContainer,
   ButtonStyled,
   SubTextTypo,
-  Divider,
+  ButtonInnerContainer,
 } from "./styled";
-import ClearHeader from "../../components/ClearHeader/ClearHeader";
-import ClearFooter from "../../components/ClearFooter/ClearFooter";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const StartPage = () => {
+  const [title, setTitle] = useState("");
+  const [artist, setArtist] = useState("");
+  const [selectedMode, setSelectedMode] = useState("");
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   fetch("http://127.0.0.1:5000/api/users", {
-  //     headers: {
-  //       Accept: "application / json",
-  //     },
-  //     //method: "GET",
-  //   })
-  //     .then(
-  //       // response 객체의 json() 이용하여 json 데이터를 객체로 변화
-  //       (res) => res.json()
-  //     )
-  //     .then(
-  //       // 데이터를 콘솔에 출력
-  //       (data) => console.log(data)
-  //     );
-  // }, []);
 
   const onClickSelectModeButton = () => {
     navigate("/select");
   };
+
+  useEffect(() => {
+    const getArt = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_HOST}/art/findArt/우는 여자`
+      );
+      //console.log(response);
+      if (response.data) {
+        setTitle(response.data.art.title);
+        setArtist(response.data.artist.name);
+      }
+    };
+
+    getArt();
+    const modeData = localStorage.getItem("selectedMode");
+    if (modeData && modeData !== undefined) {
+      setSelectedMode(modeData);
+    }
+  }, []);
+
   return (
     <Root>
       <MainContainer>
-        {/* <ClearHeader /> */}
         <TextContainer>
-          <TextTypo>모나리자</TextTypo>
-          <SubTextTypo>파블로 피카소, 1503</SubTextTypo>
+          <TextTypo>{title}</TextTypo>
+          <SubTextTypo>{artist}</SubTextTypo>
         </TextContainer>
         <ButtonContainer>
-          <ButtonStyled onClick={onClickSelectModeButton}>
-            도슨트 모드 선택하기
-          </ButtonStyled>
+          {selectedMode !== "" && (
+            <ButtonInnerContainer>
+              <ButtonStyled>{selectedMode}로 선택</ButtonStyled>
+            </ButtonInnerContainer>
+          )}
+          <ButtonInnerContainer>
+            <ButtonStyled onClick={onClickSelectModeButton}>
+              도슨트 모드 선택하기
+            </ButtonStyled>
+          </ButtonInnerContainer>
         </ButtonContainer>
-        {/* <ClearFooter /> */}
       </MainContainer>
     </Root>
   );

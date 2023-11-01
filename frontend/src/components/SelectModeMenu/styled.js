@@ -45,7 +45,7 @@ export const SubTextTypo = styled(Typography)`
   margin: 10px;
   font-size: 25px;
   font-weight: bold;
-  font-family: Pretendard-Regular;
+  font-family: "Noto Sans KR", sans-serif;
   color: #313131;
 `;
 
