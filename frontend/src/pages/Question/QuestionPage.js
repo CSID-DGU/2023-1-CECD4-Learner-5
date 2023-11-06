@@ -16,9 +16,24 @@ import SelectModeMenu from "../../components/SelectModeMenu/SelectModeMenu";
 const QuestionPage = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
+  const [text, setText] = useState("");
 
   const onClickPainterModeButton = () => {
-    navigate("/explain/painter");
+    console.log(text);
+    if (text === "" || !text || text === undefined) {
+      alert("질문 내용을 올바르게 작성해주세요");
+      return;
+    }
+
+    const selectedMode = localStorage.getItem("selectedMode");
+    localStorage.setItem("question", text);
+    if (selectedMode === "작가 모드") {
+      navigate("/explain/painter");
+    } else if (selectedMode === "텍스트 모드") {
+      navigate("/explain/text");
+    } else if (selectedMode === "라디오 모드") {
+      navigate("/explain/radio");
+    }
   };
 
   return (
@@ -32,7 +47,11 @@ const QuestionPage = () => {
             <TextTypo>추가 질문하기</TextTypo>
             <Divider />
           </TextContainer>
-          <QuestionInput placeholder="질문을 입력해주세요." />
+          <QuestionInput
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="질문을 입력해주세요."
+          />
           <FooterContainer>
             <ButtonStyled onClick={onClickPainterModeButton}>
               질문하기

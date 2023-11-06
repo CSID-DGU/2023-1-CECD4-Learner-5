@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { LeftCircleTwoTone, RightCircleTwoTone } from "@ant-design/icons";
 import {
   ArtImg,
@@ -9,25 +9,47 @@ import {
 } from "./styled";
 import beforeArt from "../../assets/art1.png";
 import afterArt from "../../assets/art3.png";
+import axios from "axios";
 
 const MoveArtMenu = () => {
+  const [artBeforeData, setArtBeforeData] = useState("");
+  const [artAfterData, setArtAfterData] = useState("");
+
+  useEffect(() => {
+    const getArt = async () => {
+      const title = localStorage.getItem("title");
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_HOST}/art/order/${title}`
+      );
+      console.log(response);
+      if (response.data) {
+        setArtBeforeData(response.data.beforeArt);
+        setArtAfterData(response.data.afterArt);
+      }
+    };
+    getArt();
+  }, []);
+
   return (
     <MoveArtContainer>
-      <MoveArtButton>
-        <LeftCircleTwoTone />
-        <ArtImg alt="beforeArt" src={beforeArt} />
-        <TextContainer>
-          <TextStyled>마릴린 먼로</TextStyled>
-          {/* <TextStyled>작품명 : AAA</TextStyled> */}
-        </TextContainer>
-      </MoveArtButton>
-      <MoveArtButton>
-        <TextContainer>
-          <TextStyled>자화상과 엉켜있는 가시와 리본</TextStyled>
-        </TextContainer>
-        <ArtImg alt="afterArt" src={afterArt} />
-        <RightCircleTwoTone />
-      </MoveArtButton>
+      {artBeforeData !== "" && (
+        <MoveArtButton>
+          <LeftCircleTwoTone />
+          <ArtImg alt="beforeArt" src={beforeArt} />
+          <TextContainer>
+            <TextStyled>{artBeforeData.title}</TextStyled>
+          </TextContainer>
+        </MoveArtButton>
+      )}
+      {artAfterData !== "" && (
+        <MoveArtButton>
+          <TextContainer>
+            <TextStyled>{artAfterData.title}</TextStyled>
+          </TextContainer>
+          <ArtImg alt="afterArt" src={afterArt} />
+          <RightCircleTwoTone />
+        </MoveArtButton>
+      )}
     </MoveArtContainer>
   );
 };

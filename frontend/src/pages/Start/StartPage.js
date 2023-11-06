@@ -18,6 +18,16 @@ const StartPage = () => {
   const [selectedMode, setSelectedMode] = useState("");
   const navigate = useNavigate();
 
+  const onClickExplainButton = () => {
+    if (selectedMode === "작가 모드") {
+      navigate("/explain/painter");
+    } else if (selectedMode === "텍스트 모드") {
+      navigate("/explain/text");
+    } else if (selectedMode === "라디오 모드") {
+      navigate("/explain/radio");
+    }
+  };
+
   const onClickSelectModeButton = () => {
     navigate("/select");
   };
@@ -29,6 +39,7 @@ const StartPage = () => {
       );
       //console.log(response);
       if (response.data) {
+        localStorage.setItem("title", response.data.art.title);
         setTitle(response.data.art.title);
         setArtist(response.data.artist.name);
       }
@@ -51,7 +62,9 @@ const StartPage = () => {
         <ButtonContainer>
           {selectedMode !== "" && (
             <ButtonInnerContainer>
-              <ButtonStyled>{selectedMode}로 선택</ButtonStyled>
+              <ButtonStyled onClick={onClickExplainButton}>
+                {selectedMode}로 선택
+              </ButtonStyled>
             </ButtonInnerContainer>
           )}
           <ButtonInnerContainer>

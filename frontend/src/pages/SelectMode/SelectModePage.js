@@ -16,14 +16,17 @@ const SelectModePage = () => {
   const navigate = useNavigate();
 
   const onClickPainterModeButton = () => {
+    localStorage.setItem("selectedMode", "작가 모드");
     navigate("/explain/painter");
   };
 
   const onClickTextModeButton = () => {
+    localStorage.setItem("selectedMode", "텍스트 모드");
     navigate("/explain/text");
   };
 
   const onClickRadioModeButton = () => {
+    localStorage.setItem("selectedMode", "라디오 모드");
     navigate("/explain/radio");
   };
   // 모든 선택한 것을 localstorage에 저장해놓으면 다음 작품에도 적용 가능할듯..?

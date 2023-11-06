@@ -23,16 +23,19 @@ const SelectModeMenu = ({ setOpenMenu }) => {
   };
 
   const onClickPainterModeButton = () => {
+    localStorage.setItem("selectedMode", "작가 모드");
     navigate("/explain/painter");
     window.location.reload();
   };
 
   const onClickTextModeButton = () => {
+    localStorage.setItem("selectedMode", "텍스트 모드");
     navigate("/explain/text");
     window.location.reload();
   };
 
   const onClickRadioModeButton = () => {
+    localStorage.setItem("selectedMode", "라디오 모드");
     navigate("/explain/radio");
     window.location.reload();
   };

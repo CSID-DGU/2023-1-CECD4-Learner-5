@@ -4,7 +4,7 @@ import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../constants/layout";
 import TextArea from "antd/es/input/TextArea";
 
 export const Root = styled.div`
-  overflow: hidden;
+  //overflow: hidden;
   height: 100vh;
 `;
 
