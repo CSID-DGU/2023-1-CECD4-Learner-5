@@ -15,6 +15,7 @@ import axios from "axios";
 const StartPage = () => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
+  const [finishedYear, setFinishedYear] = useState(undefined);
   const [selectedMode, setSelectedMode] = useState("");
   const navigate = useNavigate();
 
@@ -37,11 +38,12 @@ const StartPage = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_HOST}/art/findArt/우는 여자`
       );
-      //console.log(response);
+      console.log(response);
       if (response.data) {
         localStorage.setItem("title", response.data.art.title);
         setTitle(response.data.art.title);
         setArtist(response.data.artist.name);
+        setFinishedYear(response.data.art.finished_year);
       }
     };
 
@@ -57,7 +59,9 @@ const StartPage = () => {
       <MainContainer>
         <TextContainer>
           <TextTypo>{title}</TextTypo>
-          <SubTextTypo>{artist}</SubTextTypo>
+          <SubTextTypo>
+            {artist}, {finishedYear}
+          </SubTextTypo>
         </TextContainer>
         <ButtonContainer>
           {selectedMode !== "" && (

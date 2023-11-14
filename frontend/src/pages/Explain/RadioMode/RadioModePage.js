@@ -21,9 +21,37 @@ const RadioModePage = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const [artData, setArtData] = useState("");
+  const [audioSource, setAudioSource] = useState(null);
 
   const onClickQuestionButton = () => {
     navigate("/question");
+  };
+
+  const getTTS = async () => {
+    const title = localStorage.getItem("title");
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_HOST}/art/radioMode/${title}`
+    );
+    console.log(response);
+    //const myAudio = new Audio(response.data);
+    // setAudioSource(myAudio.src);
+    // const audioUrl = window.URL.createObjectURL(new Blob([response.data]));
+    // setAudioSource(audioUrl);
+    //console.log(audioUrl);
+
+    // const blob = await response.blob();
+    // setAudioSource(URL.createObjectURL(response.data));
+
+    // const myAudio = new Audio(response.data);
+    // const audioContext = new AudioContext();
+    // const audioBuffer = await audioContext.decodeAudioData(response);
+    //  const source = audioContext.createBufferSource();
+    // source.buffer = audioBuffer;
+    // source.connect(audioContext.destination);
+    // source.start(); //자동으로 오디오 시작되게
+    // console.log("source : ", source);
+    // myAudio.play();
+    // setAudioSource(myAudio.src);
   };
 
   useEffect(() => {
@@ -37,6 +65,7 @@ const RadioModePage = () => {
       console.log(response);
       if (response.data) {
         setArtData(response.data.art.content);
+        getTTS();
       }
     };
     if (questionValue && questionValue !== undefined) {
@@ -57,6 +86,7 @@ const RadioModePage = () => {
             <Divider></Divider>
           </TextContainer>
           <SoundIcon />
+          {audioSource && <audio controls src={audioSource}></audio>}
           <ExplainContainer>
             <ExplainTypo>{artData}</ExplainTypo>
           </ExplainContainer>

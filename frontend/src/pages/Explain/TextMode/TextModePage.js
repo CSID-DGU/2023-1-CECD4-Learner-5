@@ -25,6 +25,19 @@ const TextModePage = () => {
     navigate("/question");
   };
 
+  const getAnswer = async (text) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_SERVER_HOST}/art/textMode/`,
+      {
+        question: text,
+      }
+    );
+    console.log(response);
+    if (response.data) {
+      setArtData(response.data.content);
+    }
+  };
+
   useEffect(() => {
     const questionValue = localStorage.getItem("question");
     const getArt = async () => {
@@ -39,8 +52,10 @@ const TextModePage = () => {
     };
     if (questionValue && questionValue !== undefined) {
       console.log("gpt api 코드 호출하기!");
+      getAnswer(questionValue);
+    } else {
+      getArt();
     }
-    getArt();
   }, []);
 
   return (
