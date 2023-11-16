@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../../constants/layout";
 
 export const Root = styled.div`
@@ -37,6 +37,15 @@ export const Divider = styled.hr`
   border-radius: 20px;
 `;
 
+export const ExplainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // margin: 0px 0 100px 0;
+`;
+
+export const LoadingContainer = styled(Spin)``;
+
 export const ExplainTypo = styled(Typography)`
   width: 90%;
   margin: 20px 10px;
@@ -50,13 +59,6 @@ export const ExplainTypo = styled(Typography)`
   background-color: white;
   background: linear-gradient(to bottom right, #ffffff, #f0f0f0);
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.1);
-`;
-
-export const ExplainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // margin: 0px 0 100px 0;
 `;
 
 export const FooterContainer = styled.div`

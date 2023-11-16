@@ -11,7 +11,7 @@ import {
 } from "./styled";
 import { useNavigate } from "react-router-dom";
 import ButtonHeader from "../../components/ButtonHeader/ButtonHeader";
-import SelectModeMenu from "../../components/SelectModeMenu/SelectModeMenu";
+import ChangeModeMenu from "../../components/ChangeModeMenu/ChangeModeMenu";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
@@ -25,21 +25,22 @@ const QuestionPage = () => {
       return;
     }
 
+    let type = "question";
     const selectedMode = localStorage.getItem("selectedMode");
     localStorage.setItem("question", text);
     if (selectedMode === "작가 모드") {
-      navigate("/explain/painter");
+      navigate(`/explain/painter/${type}`);
     } else if (selectedMode === "텍스트 모드") {
-      navigate("/explain/text");
+      navigate(`/explain/text/${type}`);
     } else if (selectedMode === "라디오 모드") {
-      navigate("/explain/radio");
+      navigate(`/explain/radio/${type}`);
     }
   };
 
   return (
     <Root>
       {openMenu ? (
-        <SelectModeMenu setOpenMenu={setOpenMenu} />
+        <ChangeModeMenu setOpenMenu={setOpenMenu} />
       ) : (
         <MainContainer>
           <ButtonHeader setOpenMenu={setOpenMenu} />

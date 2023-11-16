@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../constants/layout";
 
 export const Root = styled.div`
@@ -18,6 +18,10 @@ export const MainContainer = styled.div`
   position: relative;
   padding-bottom: ${FOOTER_HEIGHT}px;
   background: linear-gradient(to bottom, #a0dafe, #009eff);
+`;
+
+export const LoadingContainer = styled(Spin)`
+  padding-top: 120px;
 `;
 export const TextContainer = styled.div`
   padding-top: 90px;

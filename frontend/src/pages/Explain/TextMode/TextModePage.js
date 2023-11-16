@@ -9,8 +9,9 @@ import {
   ExplainTypo,
   Divider,
   ExplainContainer,
+  LoadingContainer,
 } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
 import axios from "axios";
@@ -18,6 +19,9 @@ import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 
 const TextModePage = () => {
   const navigate = useNavigate();
+  const params = useParams();
+
+  const [isLoading, setIsLoading] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [artData, setArtData] = useState("");
 
@@ -26,8 +30,9 @@ const TextModePage = () => {
   };
 
   const getAnswer = async (text) => {
+    const title = localStorage.getItem("title");
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_HOST}/art/textMode/`,
+      `${process.env.REACT_APP_SERVER_HOST}/art/textMode/${title}`,
       {
         question: text,
       }
@@ -35,10 +40,12 @@ const TextModePage = () => {
     console.log(response);
     if (response.data) {
       setArtData(response.data.content);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const questionValue = localStorage.getItem("question");
     const getArt = async () => {
       const title = localStorage.getItem("title");
@@ -48,20 +55,21 @@ const TextModePage = () => {
       console.log(response);
       if (response.data) {
         setArtData(response.data.art.content);
+        setIsLoading(false);
       }
     };
-    if (questionValue && questionValue !== undefined) {
-      console.log("gpt api 코드 호출하기!");
+    if (params.type === "question") {
+      // gpt api 코드 호출하기!
       getAnswer(questionValue);
     } else {
       getArt();
     }
-  }, []);
+  }, [params]);
 
   return (
     <Root>
       {openMenu ? (
-        <SelectModeMenu setOpenMenu={setOpenMenu} />
+        <SelectModeMenu setOpenMenu={setOpenMenu} type={params.type} />
       ) : (
         <MainContainer>
           <ButtonHeader setOpenMenu={setOpenMenu} />
@@ -70,7 +78,9 @@ const TextModePage = () => {
             <Divider></Divider>
           </TextContainer>
           <ExplainContainer>
-            <ExplainTypo>{artData}</ExplainTypo>
+            <ExplainTypo>
+              {isLoading ? <LoadingContainer size="large" /> : artData}
+            </ExplainTypo>
           </ExplainContainer>
           <MoveArtMenu />
           <FooterContainer onClick={onClickQuestionButton}>

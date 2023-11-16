@@ -10,7 +10,7 @@ import {
   Divider,
   ImageContainer,
 } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
 import painterFace from "../../../assets/art2.png";
@@ -18,6 +18,8 @@ import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 
 const PainterModePage = () => {
   const navigate = useNavigate();
+  const params = useParams();
+
   const [openMenu, setOpenMenu] = useState(false);
 
   const onClickQuestionButton = () => {
@@ -27,7 +29,7 @@ const PainterModePage = () => {
   return (
     <Root>
       {openMenu ? (
-        <SelectModeMenu setOpenMenu={setOpenMenu} />
+        <SelectModeMenu setOpenMenu={setOpenMenu} type={params.type} />
       ) : (
         <MainContainer>
           <ButtonHeader setOpenMenu={setOpenMenu} />

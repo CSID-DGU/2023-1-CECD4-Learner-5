@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../../constants/layout";
 import { SoundFilled } from "@ant-design/icons";
 
@@ -40,6 +40,7 @@ export const Divider = styled.hr`
 `;
 
 export const SoundIcon = styled(SoundFilled)`
+  padding-bottom: 10px;
   font-size: 60px;
   color: #07629a;
 `;
@@ -50,6 +51,8 @@ export const ExplainContainer = styled.div`
   align-items: center;
   // margin: 0px 0 100px 0;
 `;
+
+export const LoadingContainer = styled(Spin)``;
 
 export const ExplainTypo = styled(Typography)`
   width: 90%;

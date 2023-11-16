@@ -9,8 +9,9 @@ import {
   ExplainTypo,
   Divider,
   ExplainContainer,
+  LoadingContainer,
 } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
 import { SoundIcon } from "./styled";
@@ -19,44 +20,33 @@ import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 
 const RadioModePage = () => {
   const navigate = useNavigate();
+  const params = useParams();
+
+  const [isLoading, setIsLoading] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [artData, setArtData] = useState("");
-  const [audioSource, setAudioSource] = useState(null);
 
   const onClickQuestionButton = () => {
     navigate("/question");
   };
 
-  const getTTS = async () => {
+  const getAnswer = async (text) => {
     const title = localStorage.getItem("title");
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_HOST}/art/radioMode/${title}`
+    const response = await axios.post(
+      `${process.env.REACT_APP_SERVER_HOST}/art/textMode/${title}`,
+      {
+        question: text,
+      }
     );
     console.log(response);
-    //const myAudio = new Audio(response.data);
-    // setAudioSource(myAudio.src);
-    // const audioUrl = window.URL.createObjectURL(new Blob([response.data]));
-    // setAudioSource(audioUrl);
-    //console.log(audioUrl);
-
-    // const blob = await response.blob();
-    // setAudioSource(URL.createObjectURL(response.data));
-
-    // const myAudio = new Audio(response.data);
-    // const audioContext = new AudioContext();
-    // const audioBuffer = await audioContext.decodeAudioData(response);
-    //  const source = audioContext.createBufferSource();
-    // source.buffer = audioBuffer;
-    // source.connect(audioContext.destination);
-    // source.start(); //자동으로 오디오 시작되게
-    // console.log("source : ", source);
-    // myAudio.play();
-    // setAudioSource(myAudio.src);
+    if (response.data) {
+      setArtData(response.data);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    // 음성도 해야 함!
-    const questionValue = localStorage.getItem("question");
+    setIsLoading(true);
     const getArt = async () => {
       const title = localStorage.getItem("title");
       const response = await axios.get(
@@ -64,20 +54,24 @@ const RadioModePage = () => {
       );
       console.log(response);
       if (response.data) {
-        setArtData(response.data.art.content);
-        getTTS();
+        setArtData(response.data.art);
+        setIsLoading(false);
       }
     };
-    if (questionValue && questionValue !== undefined) {
+
+    if (params.type === "question") {
       console.log("gpt api 코드 + 음성 호출하기!");
+      const questionValue = localStorage.getItem("question");
+      getAnswer(questionValue);
+    } else {
+      getArt();
     }
-    getArt();
-  }, []);
+  }, [params]);
 
   return (
     <Root>
       {openMenu ? (
-        <SelectModeMenu setOpenMenu={setOpenMenu} />
+        <SelectModeMenu setOpenMenu={setOpenMenu} type={params.type} />
       ) : (
         <MainContainer>
           <ButtonHeader setOpenMenu={setOpenMenu} />
@@ -86,9 +80,29 @@ const RadioModePage = () => {
             <Divider></Divider>
           </TextContainer>
           <SoundIcon />
-          {audioSource && <audio controls src={audioSource}></audio>}
+          {artData && artData !== "" && (
+            <audio controls autoPlay>
+              {params.type === "question" ? (
+                <source
+                  src={`${process.env.REACT_APP_SERVER_HOST}/art/radioModeExplain/${artData.title}/${artData.content}`}
+                  type="audio/mpeg"
+                />
+              ) : (
+                <source
+                  src={`${process.env.REACT_APP_SERVER_HOST}/art/radioMode/${artData.title}`}
+                  type="audio/mpeg"
+                />
+              )}
+            </audio>
+          )}
           <ExplainContainer>
-            <ExplainTypo>{artData}</ExplainTypo>
+            <ExplainTypo>
+              {!isLoading && artData && artData !== "" ? (
+                artData.content
+              ) : (
+                <LoadingContainer size="large" />
+              )}
+            </ExplainTypo>
           </ExplainContainer>
           <MoveArtMenu />
           <FooterContainer>

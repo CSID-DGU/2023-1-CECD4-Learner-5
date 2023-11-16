@@ -10,13 +10,10 @@ import {
   HeaderBackButton,
   Root,
 } from "./styled";
-import { useNavigate } from "react-router-dom";
 import { FloatButton, Tooltip } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 
-const SelectModeMenu = ({ setOpenMenu, type }) => {
-  const navigate = useNavigate();
-
+const ChangeModeMenu = ({ setOpenMenu }) => {
   const onClickCancelMenuButton = () => {
     // 창 닫기
     setOpenMenu(false);
@@ -24,20 +21,20 @@ const SelectModeMenu = ({ setOpenMenu, type }) => {
 
   const onClickPainterModeButton = () => {
     localStorage.setItem("selectedMode", "작가 모드");
-    navigate(`/explain/painter/${type}`);
-    window.location.reload();
+    setOpenMenu(false);
+    alert("작가 모드로 변경되었습니다.");
   };
 
   const onClickTextModeButton = () => {
     localStorage.setItem("selectedMode", "텍스트 모드");
-    navigate(`/explain/text/${type}`);
-    window.location.reload();
+    setOpenMenu(false);
+    alert("텍스트 모드로 변경되었습니다.");
   };
 
   const onClickRadioModeButton = () => {
     localStorage.setItem("selectedMode", "라디오 모드");
-    navigate(`/explain/radio/${type}`);
-    window.location.reload();
+    setOpenMenu(false);
+    alert("라디오 모드로 변경되었습니다.");
   };
   // 모든 선택한 것을 localstorage에 저장해놓으면 다음 작품에도 적용 가능할듯..?
   return (
@@ -83,4 +80,4 @@ const SelectModeMenu = ({ setOpenMenu, type }) => {
   );
 };
 
-export default SelectModeMenu;
+export default ChangeModeMenu;
