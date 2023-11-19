@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
   Root,
   MainContainer,
@@ -15,16 +15,29 @@ import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
 import painterFace from "../../../assets/art2.png";
 import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
+import { getVideo } from "../../../constants/awsS3";
 
 const PainterModePage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
   const [openMenu, setOpenMenu] = useState(false);
+  const [videoUrl, setVideoUrl] = useState(null);
 
   const onClickQuestionButton = () => {
     navigate("/question");
   };
+
+  useEffect(() => {
+    const getV = async () => {
+      const data = await getVideo("explain", "picaso_final");
+      if (data) {
+        console.log(data);
+        setVideoUrl(data);
+      }
+    };
+    getV();
+  }, []);
 
   return (
     <Root>
@@ -38,7 +51,8 @@ const PainterModePage = () => {
             <Divider />
           </TextContainer>
           <ImageContainer>
-            <PainterImg alt="painterFace" src={painterFace} />
+            <video src={videoUrl} controls width="250" />
+            {/* <PainterImg alt="painterFace" src={painterFace} /> */}
           </ImageContainer>
           <MoveArtMenu />
           <FooterContainer>

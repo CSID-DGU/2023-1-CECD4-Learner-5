@@ -10,10 +10,12 @@ import {
 import beforeArt from "../../assets/art1.png";
 import afterArt from "../../assets/art3.png";
 import axios from "axios";
+import { getImg } from "../../constants/awsS3";
 
 const MoveArtMenu = () => {
   const [artBeforeData, setArtBeforeData] = useState("");
   const [artAfterData, setArtAfterData] = useState("");
+  const [imgUrl, setImgUrl] = useState(null);
 
   useEffect(() => {
     const getArt = async () => {
@@ -28,6 +30,15 @@ const MoveArtMenu = () => {
       }
     };
     getArt();
+
+    const getImage = async () => {
+      const data = await getImg("art", "art1");
+      if (data) {
+        console.log(data);
+        setImgUrl(data);
+      }
+    };
+    getImage();
   }, []);
 
   return (
@@ -35,7 +46,7 @@ const MoveArtMenu = () => {
       {artBeforeData !== "" && (
         <MoveArtButton>
           <LeftCircleTwoTone />
-          <ArtImg alt="beforeArt" src={beforeArt} />
+          <ArtImg alt="beforeArt" src={imgUrl} />
           <TextContainer>
             <TextStyled>{artBeforeData.title}</TextStyled>
           </TextContainer>

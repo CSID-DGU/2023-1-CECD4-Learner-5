@@ -66,7 +66,7 @@ const RadioModePage = () => {
     } else {
       getArt();
     }
-  }, [params]);
+  }, [params.type]);
 
   return (
     <Root>
