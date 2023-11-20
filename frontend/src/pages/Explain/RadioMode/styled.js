@@ -45,6 +45,11 @@ export const SoundIcon = styled(SoundFilled)`
   color: #07629a;
 `;
 
+export const AudioWrapper = styled.audio`
+  width: 90%;
+  //padding: 0 10px;
+`;
+
 export const ExplainContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -57,6 +62,7 @@ export const LoadingContainer = styled(Spin)``;
 export const ExplainTypo = styled(Typography)`
   width: 90%;
   margin: 30px 10px;
+  margin-bottom: 0;
   padding: 32px;
   font-size: 18px;
   font-weight: 400;

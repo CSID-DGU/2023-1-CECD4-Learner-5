@@ -5,22 +5,24 @@ import {
   TextTypo,
   TextContainer,
   FooterContainer,
-  PainterImg,
   ButtonStyled,
   Divider,
   ImageContainer,
+  PainterVideo,
+  LoadingContainer,
 } from "./styled";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
 import SelectModeMenu from "../../../components/SelectModeMenu/SelectModeMenu";
-import painterFace from "../../../assets/art2.png";
 import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 import { getVideo } from "../../../constants/awsS3";
+import axios from "axios";
 
 const PainterModePage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
 
@@ -28,15 +30,30 @@ const PainterModePage = () => {
     navigate("/question");
   };
 
+  const getPainter = async (num) => {
+    const data = await getVideo("explain", `art${num}`);
+    if (data) {
+      console.log(data);
+      setVideoUrl(data);
+      setIsLoading(false);
+    } else {
+      alert("에러가 발생했습니다.");
+    }
+  };
+
   useEffect(() => {
-    const getV = async () => {
-      const data = await getVideo("explain", "picaso_final");
-      if (data) {
-        console.log(data);
-        setVideoUrl(data);
+    setIsLoading(true);
+    const getArt = async () => {
+      const title = localStorage.getItem("title");
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_HOST}/art/findArt/${title}`
+      );
+      console.log(response);
+      if (response.data) {
+        getPainter(response.data.art.order_num);
       }
     };
-    getV();
+    getArt();
   }, []);
 
   return (
@@ -51,8 +68,11 @@ const PainterModePage = () => {
             <Divider />
           </TextContainer>
           <ImageContainer>
-            <video src={videoUrl} controls width="250" />
-            {/* <PainterImg alt="painterFace" src={painterFace} /> */}
+            {!isLoading && videoUrl ? (
+              <PainterVideo src={videoUrl} controls autoPlay={true} />
+            ) : (
+              <LoadingContainer size="large" />
+            )}
           </ImageContainer>
           <MoveArtMenu />
           <FooterContainer>

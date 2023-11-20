@@ -10,6 +10,7 @@ import {
   Divider,
   ExplainContainer,
   LoadingContainer,
+  AudioWrapper,
 } from "./styled";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonHeader from "../../../components/ButtonHeader/ButtonHeader";
@@ -81,7 +82,7 @@ const RadioModePage = () => {
           </TextContainer>
           <SoundIcon />
           {artData && artData !== "" && (
-            <audio controls autoPlay>
+            <AudioWrapper controls autoPlay={true}>
               {params.type === "question" ? (
                 <source
                   src={`${process.env.REACT_APP_SERVER_HOST}/art/radioModeExplain/${artData.title}/${artData.content}`}
@@ -93,7 +94,7 @@ const RadioModePage = () => {
                   type="audio/mpeg"
                 />
               )}
-            </audio>
+            </AudioWrapper>
           )}
           <ExplainContainer>
             <ExplainTypo>

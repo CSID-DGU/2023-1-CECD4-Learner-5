@@ -15,6 +15,7 @@ export const MoveArtButton = styled.button`
   width: 50%;
   height: 60px;
   margin: 10px;
+  margin-bottom: 0;
   border: none;
   border-radius: 5px;
   color: gray;
@@ -29,7 +30,7 @@ export const MoveArtButton = styled.button`
 `;
 
 export const ArtImg = styled.img`
-  width: 20%;
+  width: 45px;
   //height: 60%;
 `;
 

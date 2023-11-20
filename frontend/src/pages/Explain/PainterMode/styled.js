@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from "../../../constants/layout";
 
 export const Root = styled.div`
@@ -47,11 +47,13 @@ export const ImageContainer = styled.div`
   align-items: center;
 `;
 
-export const PainterImg = styled.img`
-  width: 100%;
+export const LoadingContainer = styled(Spin)``;
+
+export const PainterVideo = styled.video`
+  width: 90%;
   // height: 100%;
   // margin: auto;
-  margin-top: 20px;
+  //margin-top: 5px;
 `;
 
 export const FooterContainer = styled.div`

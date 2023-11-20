@@ -7,15 +7,29 @@ import {
   TextContainer,
   TextStyled,
 } from "./styled";
-import beforeArt from "../../assets/art1.png";
-import afterArt from "../../assets/art3.png";
 import axios from "axios";
 import { getImg } from "../../constants/awsS3";
+import { useNavigate } from "react-router-dom";
 
 const MoveArtMenu = () => {
+  const navigate = useNavigate();
+
   const [artBeforeData, setArtBeforeData] = useState("");
   const [artAfterData, setArtAfterData] = useState("");
-  const [imgUrl, setImgUrl] = useState(null);
+  const [artBeforeimgUrl, setArtBeforeImgUrl] = useState(null);
+  const [artAfterimgUrl, setArtAfterImgUrl] = useState(null);
+
+  const getImage = async (num, type) => {
+    const data = await getImg("art", `art${num}`);
+    if (data && data !== "") {
+      console.log(data);
+      if (type === "before") {
+        setArtBeforeImgUrl(data);
+      } else if (type === "after") {
+        setArtAfterImgUrl(data);
+      }
+    }
+  };
 
   useEffect(() => {
     const getArt = async () => {
@@ -26,38 +40,59 @@ const MoveArtMenu = () => {
       console.log(response);
       if (response.data) {
         setArtBeforeData(response.data.beforeArt);
+        if (response.data.beforeArt && response.data.beforeArt !== "") {
+          getImage(response.data.beforeArt.order_num, "before");
+        }
         setArtAfterData(response.data.afterArt);
+        if (response.data.afterArt && response.data.afterArt !== "") {
+          getImage(response.data.afterArt.order_num, "after");
+        }
       }
     };
     getArt();
-
-    const getImage = async () => {
-      const data = await getImg("art", "art1");
-      if (data) {
-        console.log(data);
-        setImgUrl(data);
-      }
-    };
-    getImage();
   }, []);
+
+  const moveBeforeArt = () => {
+    localStorage.setItem("title", artBeforeData.title);
+    const mode = localStorage.getItem("selectedMode");
+    if (mode === "작가 모드") {
+      navigate(`/explain/painter/explain`);
+    } else if (mode === "텍스트 모드") {
+      navigate(`/explain/text/explain`);
+    } else if (mode === "라디오 모드") {
+      navigate(`/explain/radio/explain`);
+    }
+  };
+
+  const moveAfterArt = () => {
+    localStorage.setItem("title", artAfterData.title);
+    const mode = localStorage.getItem("selectedMode");
+    if (mode === "작가 모드") {
+      navigate(`/explain/painter/explain`);
+    } else if (mode === "텍스트 모드") {
+      navigate(`/explain/text/explain`);
+    } else if (mode === "라디오 모드") {
+      navigate(`/explain/radio/explain`);
+    }
+  };
 
   return (
     <MoveArtContainer>
-      {artBeforeData !== "" && (
-        <MoveArtButton>
+      {artBeforeData && artBeforeData !== "" && (
+        <MoveArtButton onClick={moveBeforeArt}>
           <LeftCircleTwoTone />
-          <ArtImg alt="beforeArt" src={imgUrl} />
+          {artBeforeimgUrl && <ArtImg alt="beforeArt" src={artBeforeimgUrl} />}
           <TextContainer>
             <TextStyled>{artBeforeData.title}</TextStyled>
           </TextContainer>
         </MoveArtButton>
       )}
-      {artAfterData !== "" && (
-        <MoveArtButton>
+      {artAfterData && artAfterData !== "" && (
+        <MoveArtButton onClick={moveAfterArt}>
           <TextContainer>
             <TextStyled>{artAfterData.title}</TextStyled>
           </TextContainer>
-          <ArtImg alt="afterArt" src={afterArt} />
+          {artAfterimgUrl && <ArtImg alt="afterArt" src={artAfterimgUrl} />}
           <RightCircleTwoTone />
         </MoveArtButton>
       )}

@@ -22,6 +22,7 @@ export const MainContainer = styled.div`
 `;
 export const TextContainer = styled.div`
   padding: 40px 0;
+  padding-bottom: 30px;
 `;
 
 export const TextTypo = styled(Typography)`
@@ -49,6 +50,7 @@ export const LoadingContainer = styled(Spin)``;
 export const ExplainTypo = styled(Typography)`
   width: 90%;
   margin: 20px 10px;
+  margin-bottom: 0;
   padding: 32px;
   font-size: 18px;
   font-weight: 400;
