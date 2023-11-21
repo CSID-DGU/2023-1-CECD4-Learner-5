@@ -62,6 +62,7 @@ const MoveArtMenu = () => {
     } else if (mode === "라디오 모드") {
       navigate(`/explain/radio/explain`);
     }
+    window.location.reload();
   };
 
   const moveAfterArt = () => {
@@ -74,6 +75,7 @@ const MoveArtMenu = () => {
     } else if (mode === "라디오 모드") {
       navigate(`/explain/radio/explain`);
     }
+    window.location.reload();
   };
 
   return (
