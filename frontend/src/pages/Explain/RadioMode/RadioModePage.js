@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import {
   Root,
   MainContainer,
@@ -20,6 +20,8 @@ import axios from "axios";
 import MoveArtMenu from "../../../components/MoveArtMenu/MoveArtMenu";
 
 const RadioModePage = () => {
+  const audioRef = useRef(null);
+
   const navigate = useNavigate();
   const params = useParams();
 
@@ -29,6 +31,13 @@ const RadioModePage = () => {
 
   const onClickQuestionButton = () => {
     navigate("/question");
+  };
+
+  const onClickResetButton = () => {
+    if (audioRef && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
   };
 
   const getAnswer = async (text) => {
@@ -82,7 +91,7 @@ const RadioModePage = () => {
           </TextContainer>
           <SoundIcon />
           {artData && artData !== "" && (
-            <AudioWrapper controls autoPlay={true}>
+            <AudioWrapper controls autoPlay={true} ref={audioRef}>
               {params.type === "question" ? (
                 <source
                   src={`${process.env.REACT_APP_SERVER_HOST}/art/radioModeExplain/${artData.title}/${artData.content}`}
@@ -110,7 +119,7 @@ const RadioModePage = () => {
             <ButtonStyled onClick={onClickQuestionButton}>
               추가 질문
             </ButtonStyled>
-            <ButtonStyled>다시 듣기</ButtonStyled>
+            <ButtonStyled onClick={onClickResetButton}>다시 듣기</ButtonStyled>
           </FooterContainer>
         </MainContainer>
       )}

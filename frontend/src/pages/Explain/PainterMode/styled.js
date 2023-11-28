@@ -43,6 +43,7 @@ export const Divider = styled.hr`
 
 export const ImageContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -54,6 +55,11 @@ export const PainterVideo = styled.video`
   // height: 100%;
   // margin: auto;
   //margin-top: 5px;
+`;
+
+export const AudioWrapper = styled.audio`
+  width: 90%;
+  padding-top: 10px;
 `;
 
 export const FooterContainer = styled.div`
