@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<StartPage />} />
+        <Route path="/:title" element={<StartPage />} />
         <Route path="/select" element={<SelectModePage />} />
         <Route path="/explain/painter/:type" element={<PainterModePage />} />
         <Route path="/explain/text/:type" element={<TextModePage />} />

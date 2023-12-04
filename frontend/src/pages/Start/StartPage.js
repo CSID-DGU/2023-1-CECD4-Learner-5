@@ -10,11 +10,12 @@ import {
   ButtonInnerContainer,
   LoadingContainer,
 } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const StartPage = () => {
   const navigate = useNavigate();
+  const params = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
@@ -41,7 +42,7 @@ const StartPage = () => {
     setIsLoading(true);
     const getArt = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_HOST}/art/findArt/우는 여자`
+        `${process.env.REACT_APP_SERVER_HOST}/art/findArt/${params.title}`
       );
       console.log(response);
       if (response.data) {
@@ -58,7 +59,7 @@ const StartPage = () => {
     if (modeData && modeData !== undefined) {
       setSelectedMode(modeData);
     }
-  }, []);
+  }, [params.title]);
 
   return (
     <Root>
