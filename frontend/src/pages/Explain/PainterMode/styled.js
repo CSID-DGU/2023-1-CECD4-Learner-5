@@ -52,6 +52,7 @@ export const LoadingContainer = styled(Spin)``;
 
 export const PainterVideo = styled.video`
   width: 90%;
+  max-width: 500px;
   // height: 100%;
   // margin: auto;
   //margin-top: 5px;

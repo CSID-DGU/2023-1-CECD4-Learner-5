@@ -5,6 +5,7 @@ export const MoveArtContainer = styled.div`
   justify-content: center;
   margin: 20px 0;
   width: 100%;
+  max-width: 500px;
 `;
 
 export const MoveArtButton = styled.button`

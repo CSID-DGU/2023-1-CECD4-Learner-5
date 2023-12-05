@@ -124,6 +124,8 @@ const PainterModePage = () => {
                       //controls
                       loop={true}
                       ref={videoRef}
+                      muted={true}
+                      playsInline={true}
                     />
                     <AudioWrapper
                       controls
@@ -151,6 +153,7 @@ const PainterModePage = () => {
                     autoPlay={true}
                     //loop={true}
                     ref={videoRef}
+                    playsInline={true}
                   />
                 </>
               )
